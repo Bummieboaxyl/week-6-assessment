@@ -1,1 +1,1 @@
-export const baseUrl = "http://localhost:5050";
+export const baseUrl = "https://capstone-backend-h2f4.onrender.com";
