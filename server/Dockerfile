@@ -2,6 +2,8 @@ FROM node:16-alpine
 
 WORKDIR /app
 
+ARG ATLAS_URI
+
 COPY package*.json ./
 
 RUN npm install
