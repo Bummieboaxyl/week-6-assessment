@@ -14,16 +14,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Log in to Docker Registry
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image for frontend
         run: |
           cd app 
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:1.3 .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/capstone-frontend:1.3 .
 
       - name: Push Docker image for frontend to Docker Registry
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:1.3
+          docker push ${{ secrets.DOCKER_USERNAME }}/capstone-frontend:1.3
 
   build_and_push_backend:
     runs-on: ubuntu-latest
@@ -34,16 +34,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Log in to Docker Registry
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image for backend
         run: |
           cd server
-          docker build --build-arg ATLAS_URI="${{ secrets.ATLAS_URI }}" -t "${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:1.3" .
+          docker build --build-arg ATLAS_URI="${{ secrets.ATLAS_URI }}" -t "${{ secrets.DOCKER_USERNAME }}/capstone-backend:1.3" .
 
       - name: Push Docker image for backend to Docker Registry
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:1.3
+          docker push ${{ secrets.DOCKER_USERNAME }}/capstone-backend:1.3
 
   deploy_to_render:
     runs-on: ubuntu-latest
